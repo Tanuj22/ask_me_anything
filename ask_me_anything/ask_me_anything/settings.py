@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_auth',
     'rest_auth.registration',
+    'webpack_loader',
     'crispy_forms',
     'users',
     'questions'
@@ -160,4 +161,12 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 6
+}
+
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json'),
+    }
 }
