@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=m2l=6&te$d*e3^#4oa%f2)!-b)uekgb=mps7$_2qqd$&kugr-'
+SECRET_KEY = 'jtnwb)m+7bj7g*9z0((1i8!quf^acnxj0$95%62)aoj3ps+h3a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,15 +38,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+
     'rest_framework',
     'rest_framework.authtoken',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
     'rest_auth',
     'rest_auth.registration',
-    'webpack_loader',
+
     'crispy_forms',
+    'webpack_loader',
+
     'users',
     'questions'
 ]
@@ -125,9 +130,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-# login settings
-
-LOGIN_URL = "accounts/login"
+LOGIN_URL = "accounts/login/"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
@@ -136,10 +139,17 @@ LOGOUT_REDIRECT_URL = "/"
 
 STATIC_URL = '/static/'
 
-# custom user model
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "assets"),
+    os.path.join(BASE_DIR, "frontend/dist"),
+]
+
+# STATIC_ROOT = "" # The absolute path to the directory where collectstatic will collect static files for deployment.
+
+# Custom User Model
 AUTH_USER_MODEL = "users.CustomUser"
 
-# crispy forms
+# django-crispy-forms
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # django.contrib.sites
@@ -149,8 +159,7 @@ SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_EMAIL_REQUIRED = (True)
 
-# rest framework settings
-
+# Django-REST-Framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
@@ -160,9 +169,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 6
+    'PAGE_SIZE': 6 
 }
-
 
 WEBPACK_LOADER = {
     'DEFAULT': {
