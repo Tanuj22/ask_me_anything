@@ -18,4 +18,11 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+*.sw*
+
+
+# Webpack-Bundle-Tracker output
+webpack-stats.json
+
+# Not Needed - Our SPA's entry-point is QuestionTime/templates/index.html
+public/
