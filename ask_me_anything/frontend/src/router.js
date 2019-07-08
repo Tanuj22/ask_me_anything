@@ -22,6 +22,11 @@ export default new Router({
       component: Question,
       props: true
     },
-    
+    {
+      path: "/ask/:slug?",
+      name: "question-editor",
+      component: QuestionEditor,
+      props: true
+    },
   ]
 });
