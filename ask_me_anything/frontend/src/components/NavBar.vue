@@ -4,7 +4,7 @@
       <router-link 
         :to="{ name: 'home' }" 
         class="navbar-brand"
-        >AskMeAnything
+        >Ask Me Anything
       </router-link>
 
       <div class="collapse navbar-collapse">
@@ -18,7 +18,7 @@
           </li>
           <li class="nav-item mx-1">
             <router-link 
-              :to="{ name: 'about' }" 
+              :to="{ name: 'question-editor' }" 
               class="btn btn-sm btn-danger"
               >Ask Question
             </router-link>
@@ -44,10 +44,12 @@ export default {
 .my-navbar {
   border-bottom: 1px solid #ddd;
 }
+
 .navbar-brand {
   font-weight: bold;
   font-size: 130%;
 }
+
 .navbar-brand:hover {
   color: #dc3545 !important;
 }
