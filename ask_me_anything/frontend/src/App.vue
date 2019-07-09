@@ -1,29 +1,40 @@
 <template>
   <div id="app">
     <navbar-component></navbar-component>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <router-view/>
   </div>
 </template>
 
-
 <script>
-import NavbarComponent from "./components/NavBar";
+import { apiService } from "@/common/api.service.js";
+import NavbarComponent from "@/components/Navbar.vue";
 export default {
-  
-  name:"App",
-  components:{
-      NavbarComponent
+  name: "App",
+  components: {
+    NavbarComponent
+  },
+  methods: {
+    async setUserInfo() {
+      // add the username of the logged in user to localStorage
+      const data = await apiService("/api/user/");
+      const requestUser = data["username"];
+      window.localStorage.setItem("username", requestUser);
+    }
+  },
+  created() {
+    this.setUserInfo()
   }
-  
-}
+};
 </script>
 
 <style>
+html,
+body {
+  height: 100%;
+  font-family: "Playfair Display", serif;
+}
 
-
-
+.btn:focus {
+  box-shadow: none !important;
+}
 </style>
