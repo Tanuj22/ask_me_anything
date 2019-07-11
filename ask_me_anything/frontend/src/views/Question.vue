@@ -9,11 +9,30 @@
       <p>{{ question.created_at }}</p>
       <hr>
       
+    <div v-if="question" class="container">
+      <AnswerComponent 
+        v-for="answer in answers"
+        :answer="answer"
+        :requestUser="requestUser"
+        :key="answer.id"
+        @delete-answer="deleteAnswer"
+      />
+      <div class="my-4">
+        <p v-show="loadingAnswers">...loading...</p>
+        <button
+          v-show="next"
+          @click="getQuestionAnswers"
+          class="btn btn-sm btn-outline-success"
+          >Load More
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { apiService } from "@/common/api.service.js";
+import AnswerComponent from "@/components/Answer.vue";
 
 export default {
   name: "Question",
@@ -24,18 +43,26 @@ export default {
     }
   },
   components: {
+    AnswerComponent,
     
   },
   data() {
     return {
       question: {},
+      answers: [],
+      next: null,
+      loadingAnswers: false,
+      newAnswerBody: null,
       
     }
   },
-  
+  computed: {
+    isQuestionAuthor() {
+      return this.question.author === this.requestUser;
+    }
+  },
   methods: {
     setPageTitle(title) {
-      // set a given title string as the webpage title
       document.title = title;
     },
     
@@ -55,19 +82,48 @@ export default {
 
         })
     },
-    
-     
-    
+    getQuestionAnswers() {
+      // get a page of answers for a single question from the REST API's paginated 'Questions Endpoint'
+      let endpoint = `/api/questions/${this.slug}/answers/`;
+      if (this.next) {
+        endpoint = this.next;
+      }
+      this.loadingAnswers = true;
+      apiService(endpoint)
+        .then(data => {
+          this.answers.push(...data.results);
+          this.loadingAnswers = false;
+          if (data.next) {
+            this.next = data.next;
+          } else {
+            this.next = null;
+          }
+        })
     },
     
-  
+    
+  },
   created() {
     this.getQuestionData()
+    this.getQuestionAnswers()
     
   }
 }
 </script>
 
 <style scoped>
+.author-name {
+  font-weight: bold;
+  color: #DC3545;
+}
 
+.answer-added {
+  font-weight: bold;
+  color: green;
+}
+
+.error {
+  font-weight: bold;
+  color: red; 
+}
 </style>
