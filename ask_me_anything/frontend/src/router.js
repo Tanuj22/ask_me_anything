@@ -28,5 +28,12 @@ export default new Router({
       component: QuestionEditor,
       props: true
     },
+    {
+      path: "/answer/:id",
+      name: "answer-editor",
+      component: AnswerEditor,
+      props: true
+    },
+    
   ]
 });
