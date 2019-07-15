@@ -34,6 +34,10 @@ export default new Router({
       component: AnswerEditor,
       props: true
     },
-    
+    {
+      path: "*",
+      name: "page-not-found",
+      component: NotFound
+    }
   ]
 });
