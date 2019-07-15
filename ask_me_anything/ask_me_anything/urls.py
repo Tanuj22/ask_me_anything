@@ -22,7 +22,6 @@ from core.views import IndexTemplateView
 from users.forms import CustomUserForm
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -30,7 +29,7 @@ urlpatterns = [
          RegistrationView.as_view(
              form_class=CustomUserForm,
              success_url="/",
-             ), name="django_registration_register"), 
+         ), name="django_registration_register"),
 
     path("accounts/",
          include("django_registration.backends.one_step.urls")),
@@ -49,7 +48,7 @@ urlpatterns = [
 
     path("api/rest-auth/",
          include("rest_auth.urls")),
-        
+
     path("api/rest-auth/registration/",
          include("rest_auth.registration.urls")),
 
